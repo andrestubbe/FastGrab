@@ -228,6 +228,8 @@ Download the latest pre-compiled JARs directly to add them to your project's cla
 
 * **[PHILOSOPHY.md](docs/PHILOSOPHY.md)**: The engineering rationale for uncompressed zero-latency captures.
 * **[REFERENCE.md](docs/REFERENCE.md)**: Complete CLI switches and Java API reference.
+* **[CHANGELOG.md](docs/CHANGELOG.md)**: Full release history and version notes.
+* **[ROADMAP.md](docs/ROADMAP.md)**: Upcoming features, 60+ FPS video streaming, and ecosystem milestones.
 
 ---
 
