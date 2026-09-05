@@ -89,6 +89,16 @@ Traditional capture tools are poorly suited for latency-critical tasks, high-fre
 
 ---
 
+## Real-World Use Cases
+
+- ⚡ **Zero-Lag Screenshot Hotkey Daemon**: Replace bloated screenshot utilities (ShareX, Windows Snipping Tool) with a background process that commits full-resolution desktop captures in <6 ms without UI pauses or window flashes.
+- 🎯 **Bit-Exact Visual Regression & UI Testing**: Capture pristine, 100% uncompressed frames during automated UI / rendering test suites (e.g., Selenium, JavaFX, OpenGL, Vulkan) where PNG compression artifacts or color subsampling would cause false positive diffs.
+- 🏎️ **High-Speed Gameplay & Event Bursting**: Burst-capture 5–60 consecutive uncompressed frames (`--burst 10`) at full monitor refresh rates during rapid in-game action, physics anomalies, or micro-stutters.
+- 🤖 **Dataset Generation for Vision & OCR Pipelines**: Rapidly collect hundreds of raw screen patches per second without GPU/CPU encoding bottlenecks for training OCR, layout parsing, or object detection models.
+- 📊 **Financial & High-Frequency Trading Telemetry**: Archive pixel-accurate order book states, charts, and millisecond ticker snapshots without introducing thread latency to execution algorithms.
+
+---
+
 ## Architecture & Pipeline
 
 ```
