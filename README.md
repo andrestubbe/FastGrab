@@ -130,6 +130,30 @@ Benchmark.benchmarkFastGrabBmpWriter  thrpt    3   0.221          ops/ms
 
 ---
 
+## API Quick Reference
+
+FastGrab provides both high-speed Java methods and a standalone CLI tool:
+
+### Java API (`FastBmpWriter`)
+
+| Class | Method | Return Type | Description |
+|:---|:---|:---:|:---|
+| `FastBmpWriter` | `writeBmp(String path, int w, int h, int[] pixels)` | `void` | Writes 32-bit ARGB/BGRA pixel array directly to uncompressed Windows BMP file (top-down DIB). |
+| `FastBmpWriter` | `writeDirectBgra(String path, int w, int h, ByteBuffer buffer)` | `void` | **Zero-Copy**: Streams direct off-heap native buffer straight to disk via NIO FileChannel. |
+
+### CLI Options Reference
+
+| Switch | Long Option | Argument | Description | Default |
+|:---|:---|:---:|:---|:---:|
+| `-d` | `--daemon` | - | Runs continuously in background listening for global hotkey | `false` |
+| `-k` | `--hotkey` | `<KEY>` | Hotkey keycode name (`F1`–`F12`, `PRINTSCREEN`) | `F10` |
+| `-o` | `--out` | `<path.bmp>` | Custom output file path for single capture | `grab_YYYYMMDD_HHMMSS_SSS.bmp` |
+| `-r` | `--rect` | `<x,y,w,h>` | Explicit capture region coordinates | Full primary screen |
+| `-b` | `--burst` | `<count>` | Consecutive frame burst count | `1` |
+| `-h` | `--help` | - | Prints usage instructions and switches | - |
+
+---
+
 ## Installation
 
 ### Option 1: Maven (`pom.xml`)
