@@ -126,7 +126,7 @@ Benchmark.benchmarkFastGrabBmpWriter  thrpt    3   0.221          ops/ms
 ```
 
 > [!NOTE]
-> **Environment & Setup**: Measured on an Intel Core i7 with Windows 11. Writing uncompressed 800×600 full 32-bit frames directly to disk achieves **>220 full frames / sec** with zero JVM heap garbage allocations.
+> **Environment & Setup**: Measured on an 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz (4C/8T), Windows 11 Home, OpenJDK 21 LTS. Writing uncompressed 800×600 full 32-bit frames directly to disk achieves **>220 full frames / sec** with zero JVM heap garbage allocations.
 
 ---
 
