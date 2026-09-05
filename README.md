@@ -132,7 +132,7 @@ Benchmark.benchmarkFastGrabBmpWriter  thrpt    3   0.221          ops/ms
 
 ## Installation
 
-### Option 1: Maven (Recommended)
+### Option 1: Maven (`pom.xml`)
 
 Add the JitPack repository and the dependencies to your `pom.xml`:
 
@@ -170,6 +170,33 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
     </dependency>
 </dependencies>
 ```
+
+### Option 2: Gradle (`build.gradle`)
+
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.andrestubbe:FastGrab:0.1.0'
+    implementation 'com.github.andrestubbe:FastScreen:0.1.2'
+    implementation 'com.github.andrestubbe:fasthotkey:0.1.0'
+    implementation 'com.github.andrestubbe:FastCore:0.1.0'
+}
+```
+
+### Option 3: Direct Download (No Build Tool)
+
+Download the latest pre-compiled JARs directly to add them to your project's classpath or use the CLI directly:
+
+1. 📸 [**FastGrab-0.1.0.jar**](https://github.com/andrestubbe/FastGrab/releases/tag/0.1.0) (The CLI & Capture Engine)
+2. 🖥️ [**FastScreen-0.1.2.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.2) (DirectX 11 DXGI Desktop Capture)
+3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 Hotkeys)
+4. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library Loader)
+
+> [!IMPORTANT]
+> FastGrab requires `FastScreen` (and its native DLL), `FastHotkey`, and `FastCore` on the classpath to run.
 
 ---
 
