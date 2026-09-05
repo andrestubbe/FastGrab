@@ -226,6 +226,7 @@ MIT License — See [LICENSE](LICENSE) for details.
 ## Related Projects
 
 - [FastScreen](https://github.com/andrestubbe/FastScreen) — Ultra-Fast DirectX Screen Capture Engine
+- [FastCamera](https://github.com/andrestubbe/FastCamera) — Hardware-Accelerated Native Camera Capture & Streaming
 - [FastHotkey](https://github.com/andrestubbe/FastHotkey) — Low-Latency Global System Hotkeys
 - [FastImage](https://github.com/andrestubbe/FastImage) — SIMD-Accelerated Off-Heap Image Engine
 - [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader for Java
