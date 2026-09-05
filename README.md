@@ -93,22 +93,28 @@ Traditional capture tools are poorly suited for latency-critical tasks, high-fre
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 Windows OS Global Hotkey Hook               │
-│                  (fasthotkey.dll / SendInput)               │
+│                 Windows OS Global Hotkey                    │
+│                        (FastHotkey)                         │
 └──────────────────────────────┬──────────────────────────────┘
                                │ Instant Key Event (<0.1ms)
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                   FastGrab Daemon Engine                    │
-└───────────────┬─────────────────────────────┬───────────────┘
-                │ DXGI Duplication            │ Direct DMA
-                ▼                             ▼
-┌───────────────────────────────┐ ┌───────────────────────────┐
-│          FastScreen           │ │       FastBmpWriter       │
-│  (DirectX 11 GPU Staging Pool)│ │ (54-Byte Header + Native) │
-└───────────────┬───────────────┘ └───────────┬───────────────┘
-                │ Zero-Copy Native Pointer    │ Bit-Perfect Flush
-                ▼                             ▼
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Request Frame (<1ms)
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                         FastScreen                          │
+│          (DirectX 11 DXGI GPU Desktop Duplication)          │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Zero-Copy Off-Heap BGRA Buffer
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       FastBmpWriter                         │
+│               (54-Byte Top-Down DIB Header)                 │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Direct NIO Channel Write
+                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                 Fast Storage / NVMe SSD (.bmp)              │
 └─────────────────────────────────────────────────────────────┘
