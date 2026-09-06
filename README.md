@@ -310,9 +310,14 @@ MIT License — See [LICENSE](LICENSE) for details.
 ## Related Projects
 
 - [FastScreen](https://github.com/andrestubbe/FastScreen) — Ultra-Fast DirectX Screen Capture Engine
+- [FastAnimation](https://github.com/andrestubbe/FastAnimation) — High-Performance Zero-GC 60/120 FPS Animation Engine
 - [FastCamera](https://github.com/andrestubbe/FastCamera) — Hardware-Accelerated Native Camera Capture & Streaming
 - [FastHotkey](https://github.com/andrestubbe/FastHotkey) — Low-Latency Global System Hotkeys
 - [FastImage](https://github.com/andrestubbe/FastImage) — SIMD-Accelerated Off-Heap Image Engine
+- [FastDWM](https://github.com/andrestubbe/FastDWM) — Native Windows Desktop Window Manager & VSync Engine
+- [FastSIMD](https://github.com/andrestubbe/FastSIMD) — AVX2/AVX-512 Vectorized Math Acceleration
+- [FastPointer](https://github.com/andrestubbe/FastPointer) — Safe Zero-Overhead Direct Memory Pointer Bridge
+- [FastMemory](https://github.com/andrestubbe/FastMemory) — High-Performance Off-Heap Memory Buffers
 - [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader for Java
 
 ---
