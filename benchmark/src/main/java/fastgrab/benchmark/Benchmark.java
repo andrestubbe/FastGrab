@@ -1,6 +1,6 @@
 package fastgrab.benchmark;
 
-import fastgrab.FastBmpWriter;
+import fastscreencapture.FastBmpWriter;
 import fastscreen.FastScreen;
 import org.openjdk.jmh.annotations.*;
 

@@ -1,4 +1,4 @@
-package fastgrab;
+package fastscreencapture;
 
 import fastscreen.FastScreen;
 import fasthotkey.FastHotkey;
@@ -13,12 +13,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * FastGrab — Ultra-fast uncompressed screen capture CLI and global hotkey daemon.
+ * FastScreenCapture — Ultra-fast uncompressed screen capture CLI and global hotkey daemon.
  * 
  * Captures bit-perfect uncompressed frames in sub-millisecond time using DXGI
  * and writes directly to disk without Java heap GC churn or PNG compression lags.
  */
-public class FastGrab {
+public class FastScreenCapture {
 
     private static final String VERSION = "0.1.0";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
@@ -92,14 +92,14 @@ public class FastGrab {
 
     private static void printBanner() {
         System.out.println("===============================================================");
-        System.out.println("⚡ FastGrab v" + VERSION + " — Bit-Perfect Uncompressed Screen Grabber");
+        System.out.println("⚡ FastScreenCapture v" + VERSION + " — Bit-Perfect Uncompressed Screen Grabber");
         System.out.println("   DirectX 11 DXGI Duplication | Direct-to-Disk | Zero GC");
         System.out.println("===============================================================");
     }
 
     private static void printHelp() {
         printBanner();
-        System.out.println("Usage: fastgrab [options]");
+        System.out.println("Usage: fastscreencapture [options]");
         System.out.println();
         System.out.println("Options:");
         System.out.println("  -d, --daemon            Run in background listening for global hotkey");
@@ -110,8 +110,8 @@ public class FastGrab {
         System.out.println("  -h, --help              Show this help message");
         System.out.println();
         System.out.println("Examples:");
-        System.out.println("  fastgrab                               # Instant bit-perfect full screen grab");
-        System.out.println("  fastgrab --daemon --hotkey F10         # Background daemon listening on F10");
+        System.out.println("  fastscreencapture                        # Instant bit-perfect full screen grab");
+        System.out.println("  fastscreencapture --daemon --hotkey F10  # Background daemon listening on F10");
         System.out.println("  fastgrab --rect 100,100,800,600        # Grab specific 800x600 region");
         System.out.println("  fastgrab --burst 30                    # Capture 30 uncompressed frames in a burst");
     }
@@ -222,7 +222,7 @@ public class FastGrab {
             } catch (Exception e) {
                 System.err.println("[ERROR] Hotkey listener terminated: " + e.getMessage());
             }
-        }, "FastGrab-HotkeyListener");
+        }, "FastScreenCapture-HotkeyListener");
         hotkeyThread.setDaemon(true);
         hotkeyThread.start();
 
