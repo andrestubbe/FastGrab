@@ -1,9 +1,20 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-echo ===============================================================
-echo  FastScreenCapture Launcher - Bit-Perfect Uncompressed Screen Grabber
-echo ===============================================================
+chcp 65001 >nul
 
-REM Pass all arguments directly to the Maven exec plugin
-mvn exec:java -Dexec.mainClass="fastscreencapture.FastScreenCapture" -Dexec.args="%*"
+REM Build classpath cache if missing or compile if classes not found
+if not exist "target\classes\fastscreencapture\FastScreenCapture.class" (
+    echo [FastScreenCapture] Compiling classes...
+    call mvn clean compile -q
+)
+
+if not exist "target\cp.txt" (
+    echo [FastScreenCapture] Resolving dependency classpath...
+    call mvn dependency:build-classpath -Dmdep.outputFile=target\cp.txt -q
+)
+
+set /p FSC_CP=<target\cp.txt
+
+java -Dfile.encoding=UTF-8 -cp "target\classes;%FSC_CP%" fastscreencapture.FastScreenCapture %*
+

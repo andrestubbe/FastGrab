@@ -29,6 +29,11 @@ public class FastScreenCapture {
     private static final int VK_SNAPSHOT_CODE = 0x2C;
 
     public static void main(String[] args) {
+        try {
+            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+            System.setErr(new java.io.PrintStream(System.err, true, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception ignored) {}
+
         if (args.length > 0 && (args[0].equals("-h") || args[0].equals("--help"))) {
             printHelp();
             return;
