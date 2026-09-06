@@ -1,0 +1,66 @@
+﻿================================================================================
+YOUTUBE VIDEO RELEASE
+================================================================================
+
+TITLE:
+FastScreenCapture: Zero-Copy Bit-Perfect Screen Capture (The Tool Built Out of FastAnimation Frustration)
+
+DESCRIPTION:
+Why did I write my own screen grabber? Frustration.
+
+While trying to record high-frequency 3D particle demos for FastAnimation, every single capture tool failed. ShareX and the native Windows 11 Snipping Tool kept introducing blurry compression artifacts, dropped frames, and severe moiré interference on fine particle lines. 
+
+Standard screen recorders either chew up massive CPU cycles compressing in the foreground or lock up your drive with bloated temporary files. I needed a grabber that captures the desktop exactly as the GPU renders it — bit-perfect, zero lag, and without touching the Java heap.
+
+FastScreenCapture hooks directly into DirectX 11 DXGI Desktop Duplication, pulls raw frames at sub-millisecond speeds, and streams them via a direct zero-allocation memory pipe straight into FFmpeg. The result: crisp 60 FPS video recordings without compression blur or dropped frames, while the CPU stays practically idle.
+
+TECHNICAL HIGHLIGHTS:
+* DirectX 11 DXGI Desktop Duplication: Hardware-accelerated desktop surface capture delivering pristine, uncompressed frames in sub-millisecond time.
+* Zero Heap GC Pressure: Direct memory streaming with zero JVM object allocation on the hot capture loop.
+* Memory Pipe Streaming: Pipes raw BGRA video buffers directly into an optimized FFmpeg process without thrashing SSD storage with temporary bitmaps.
+* Instant Hotkey Workflow: [F9] toggles lossless 60 FPS MP4 recording; [F10] grabs instant uncompressed 32-bit BMP screenshots.
+* Acoustic Feedback: Sub-millisecond auditory status cues (crisp 1200 Hz high tone on start, 450 Hz low tone on stop).
+* Fast-Start Compatible MP4: Writes the moov atom header at the front of the file (+faststart) for instant playback in Windows Photos, VLC, and editors.
+* Sub-1% CPU Overhead: Captures silky smooth 60 FPS footage while demanding graphic engines run at full throttle.
+
+GITHUB REPOSITORIES:
+* FastScreenCapture: https://github.com/andrestubbe/FastScreenCapture
+* FastScreen: https://github.com/andrestubbe/FastScreen
+* FastHotkey: https://github.com/andrestubbe/FastHotkey
+* FastImage: https://github.com/andrestubbe/FastImage
+* FastAnimation: https://github.com/andrestubbe/FastAnimation
+
+OUR PHILOSOPHY:
+No copies. Contiguous buffers. Native timing. Zero framework overhead. Making the JVM faster.
+
+TAGS:
+FastScreenCapture, FastJava, ScreenRecording, DXGI, Direct3D, ZeroGC, JavaPerformance, FFmpeg, LowLatency, ShareX, SnippingToolAlternative, BitPerfect, LosslessVideo, HighFPS
+
+
+================================================================================
+LINKEDIN POST (ANDRE STUBBE STYLE)
+================================================================================
+
+I actually just wanted to record a 60-second video of my FastAnimation demo. 
+
+Turns out: Every standard tool couldn't handle it. ShareX blurred out the fine 3D particle details, and the Windows 11 Snipping Tool was either dropping frames or producing ugly compression moiré effects all over the place.
+
+So I did what any performance-obsessed developer does:
+I built my own screen capture engine.
+
+Meet FastScreenCapture — a lightweight, zero-copy screen recording daemon and CLI for the FastJava ecosystem.
+
+What it does differently:
+* Grabs frames directly from DirectX 11 DXGI Desktop Duplication in sub-millisecond time.
+* Zero GC overhead: The Java heap doesn't allocate temporary junk for every frame.
+* No disk thrashing: Instead of dumping 30 GB of raw bitmaps onto the SSD, it streams native BGRA buffers via RAM pipe directly into FFmpeg.
+* Audio cue feedback: A clean 1200 Hz tone on record start, 450 Hz on stop.
+* Hotkey control: Hit [F9] anywhere in Windows to start/stop lossless 60 FPS recording; hit [F10] for an instant bit-perfect BMP.
+* My CPU barely even notices it's recording.
+
+If you are tired of capture lag, dropped frames, and compression blur:
+
+GitHub: https://github.com/andrestubbe/FastScreenCapture
+Full ecosystem: https://github.com/andrestubbe
+
+#FastJava #FastScreenCapture #DXGI #FFmpeg #ZeroGC #JavaPerformance #LowLatency #CreativeCoding
