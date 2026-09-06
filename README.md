@@ -1,16 +1,16 @@
-# FastGrab 0.1.0 [ALPHA] — Ultra-Fast Uncompressed Screen Capture CLI & Global Hotkey Daemon for Java
+# FastScreenCapture 0.1.0 [ALPHA] — Ultra-Fast Uncompressed Screen Capture CLI & Global Hotkey Daemon for Java
 
-[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastGrab/releases/tag/0.1.0)
+[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
-[![JitPack](https://img.shields.io/badge/JitPack-0.1.0-green.svg)](https://jitpack.io/#andrestubbe/FastGrab)
+[![JitPack](https://img.shields.io/badge/JitPack-0.1.0-green.svg)](https://jitpack.io/#andrestubbe/FastScreenCapture)
 
 ---
 
 **⚡ Bit-perfect uncompressed screen grabs in under 1 millisecond.** Direct DirectX 11 DXGI GPU capture, zero GC pressure, and native system-wide hotkeys.
 
-`FastGrab` is a minimalist, ultra-responsive replacement for bloated screenshot utilities like ShareX and Windows Snipping Tool. Instead of freezing the desktop and forcing heavy PNG compression, `FastGrab` streams raw uncompressed BMP / BGRA byte buffers straight from the GPU frame buffer to NVMe storage.
+`FastScreenCapture` is a minimalist, ultra-responsive replacement for bloated screenshot utilities like ShareX and Windows Snipping Tool. Instead of freezing the desktop and forcing heavy PNG compression, `FastScreenCapture` streams raw uncompressed BMP / BGRA byte buffers straight from the GPU frame buffer to NVMe storage.
 
 ---
 
@@ -18,20 +18,20 @@
 
 ### 1. Instant Desktop Grab via CLI Launcher
 ```cmd
-FastGrab.bat
+FastScreenCapture.bat
 ```
 Captures the entire desktop at hardware resolution and writes a bit-perfect uncompressed `.bmp` into `grabs/`.
 
 ### 2. Background Daemon with Global Hotkey
 ```cmd
-FastGrab.bat --daemon --hotkey F10
+FastScreenCapture.bat --daemon --hotkey F10
 ```
 Runs quietly in the background. Pressing `[F10]` anywhere in Windows triggers an instant snapshot without UI lag or focus interruption.
 
 ### 3. Programmatic Java API
 ```java
 import fastscreen.FastScreen;
-import fastgrab.FastBmpWriter;
+import FastScreenCapture.FastBmpWriter;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
@@ -50,7 +50,7 @@ public class Demo {
 
 ## Table of Contents
 
-- [Why FastGrab?](#why-fastgrab)
+- [Why FastScreenCapture?](#why-FastScreenCapture)
 - [Key Features](#key-features)
 - [Real-World Use Cases](#real-world-use-cases)
 - [Architecture & Pipeline](#architecture--pipeline)
@@ -63,7 +63,7 @@ public class Demo {
 
 ---
 
-## Why FastGrab?
+## Why FastScreenCapture?
 
 Traditional capture tools are poorly suited for latency-critical tasks, high-frequency analysis, and bit-accurate image verification:
 
@@ -71,7 +71,7 @@ Traditional capture tools are poorly suited for latency-critical tasks, high-fre
 2. **Forced CPU Compression Overhead**: Enforcing PNG/JPEG encoding burns 20–100 ms of CPU time per frame and creates compression artifacts.
 3. **Severe GC Stalls**: Legacy Java capture tools allocate tens of megabytes per frame on the JVM heap.
 
-**FastGrab** bypasses these limitations:
+**FastScreenCapture** bypasses these limitations:
 - **Direct DXGI Desktop Duplication**: Raw GPU framebuffer extraction in <1 ms via `FastScreen`.
 - **Bit-Perfect 100% Raw BMP**: Lossless uncompressed files instantly openable in any viewer or editor.
 - **Global Low-Latency Hooks**: Instantaneous event response via `FastHotkey`.
@@ -109,7 +109,7 @@ Traditional capture tools are poorly suited for latency-critical tasks, high-fre
                                │ Instant Key Event (<0.1ms)
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   FastGrab Daemon Engine                    │
+│                   FastScreenCapture Daemon Engine                    │
 └──────────────────────────────┬──────────────────────────────┘
                                │ Request Frame (<1ms)
                                ▼
@@ -138,7 +138,7 @@ Measured on official JMH benchmark suite (`run-benchmark.bat`):
 
 ```text
 Benchmark                              Mode  Cnt   Score   Error   Units
-Benchmark.benchmarkFastGrabBmpWriter  thrpt    3   0.221          ops/ms
+Benchmark.benchmarkFastScreenCaptureBmpWriter  thrpt    3   0.221          ops/ms
 ```
 
 > [!NOTE]
@@ -148,7 +148,7 @@ Benchmark.benchmarkFastGrabBmpWriter  thrpt    3   0.221          ops/ms
 
 ## API Quick Reference
 
-FastGrab provides both high-speed Java methods and a standalone CLI tool:
+FastScreenCapture provides both high-speed Java methods and a standalone CLI tool:
 
 ### Java API (`FastBmpWriter`)
 
@@ -185,10 +185,10 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
 </repositories>
 
 <dependencies>
-    <!-- FastGrab Engine -->
+    <!-- FastScreenCapture Engine -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
-        <artifactId>FastGrab</artifactId>
+        <artifactId>FastScreenCapture</artifactId>
         <version>0.1.0</version>
     </dependency>
 
@@ -196,7 +196,7 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastScreen</artifactId>
-        <version>0.1.2</version>
+        <version>0.1.4</version>
     </dependency>
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
@@ -219,8 +219,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:FastGrab:0.1.0'
-    implementation 'com.github.andrestubbe:FastScreen:0.1.2'
+    implementation 'com.github.andrestubbe:FastScreenCapture:0.1.0'
+    implementation 'com.github.andrestubbe:FastScreen:0.1.4'
     implementation 'com.github.andrestubbe:fasthotkey:0.1.0'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
@@ -230,13 +230,13 @@ dependencies {
 
 Download the latest pre-compiled JARs directly to add them to your project's classpath or use the CLI directly:
 
-1. 📸 [**FastGrab-0.1.0.jar**](https://github.com/andrestubbe/FastGrab/releases/tag/0.1.0) (The CLI & Capture Engine)
-2. 🖥️ [**FastScreen-0.1.2.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.2) (DirectX 11 DXGI Desktop Capture)
+1. 📸 [**FastScreenCapture-0.1.0.jar**](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0) (The CLI & Capture Engine)
+2. 🖥️ [**FastScreen-0.1.4.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4) (DirectX 11 DXGI Desktop Capture)
 3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 Hotkeys)
 4. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library Loader)
 
 > [!IMPORTANT]
-> FastGrab requires `FastScreen` (and its native DLL), `FastHotkey`, and `FastCore` on the classpath to run.
+> FastScreenCapture requires `FastScreen` (and its native DLL), `FastHotkey`, and `FastCore` on the classpath to run.
 
 ---
 

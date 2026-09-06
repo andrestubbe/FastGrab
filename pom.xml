@@ -6,13 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.andrestubbe</groupId>
-    <artifactId>FastGrab</artifactId>
+    <artifactId>FastScreenCapture</artifactId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
 
-    <name>FastGrab</name>
+    <name>FastScreenCapture</name>
     <description>Ultra-fast uncompressed screen capture CLI and global hotkey daemon for Java</description>
-    <url>https://github.com/andrestubbe/FastGrab</url>
+    <url>https://github.com/andrestubbe/FastScreenCapture</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -37,9 +37,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/andrestubbe/FastGrab.git</connection>
-        <developerConnection>scm:git:ssh://github.com:andrestubbe/FastGrab.git</developerConnection>
-        <url>https://github.com/andrestubbe/FastGrab/tree/main</url>
+        <connection>scm:git:git://github.com/andrestubbe/FastScreenCapture.git</connection>
+        <developerConnection>scm:git:ssh://github.com:andrestubbe/FastScreenCapture.git</developerConnection>
+        <url>https://github.com/andrestubbe/FastScreenCapture/tree/main</url>
     </scm>
 
     <repositories>
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>FastScreen</artifactId>
-            <version>0.1.2</version>
+            <version>0.1.4</version>
         </dependency>
 
         <!-- FastHotkey - Low-Latency Global Windows Hotkeys -->
@@ -75,7 +75,7 @@
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>FastImage</artifactId>
-            <version>0.1.2</version>
+            <version>0.1.4</version>
         </dependency>
 
         <!-- JUnit 5 for testing -->
