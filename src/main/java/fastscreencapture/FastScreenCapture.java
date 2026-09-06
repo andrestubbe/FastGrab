@@ -454,6 +454,7 @@ public class FastScreenCapture {
                         System.out.printf("\n🔴 [RECORDING STARTED #%d] Stream: %dx%d @ %d FPS -> %s\n",
                                 num, screenW, screenH, recordFps, videoFilename);
                         System.out.printf("   Press [%s] again to STOP recording.\n", recordHotkeyName);
+                        playTone(1200, 120); // High pitch notification for START
 
                         // Background frame capture thread
                         Thread recThread = new Thread(() -> {
@@ -500,6 +501,7 @@ public class FastScreenCapture {
                 } else {
                     // STOP RECORDING
                     isRecording.set(false);
+                    playTone(450, 180); // Low pitch notification for STOP
                     try {
                         if (activePipe[0] != null) {
                             activePipe[0].flush();
@@ -567,5 +569,35 @@ public class FastScreenCapture {
         } catch (Exception ignored) {}
         finalScreen.dispose();
         System.out.println("[DAEMON] Bye!");
+    }
+
+    /**
+     * Plays an audible system tone asynchronously:
+     * - High crisp pitch (1200 Hz) for recording START
+     * - Low descending pitch (450 Hz) for recording STOP
+     */
+    private static void playTone(int frequencyHz, int durationMs) {
+        new Thread(() -> {
+            try {
+                // Generate a pure sine wave audio buffer and play via Java Sound line
+                byte[] buf = new byte[durationMs * 44100 / 1000];
+                for (int i = 0; i < buf.length; i++) {
+                    double angle = 2.0 * Math.PI * i / (44100.0 / frequencyHz);
+                    buf[i] = (byte) (Math.sin(angle) * 110);
+                }
+                javax.sound.sampled.AudioFormat format = new javax.sound.sampled.AudioFormat(44100, 8, 1, true, false);
+                javax.sound.sampled.SourceDataLine line = javax.sound.sampled.AudioSystem.getSourceDataLine(format);
+                line.open(format);
+                line.start();
+                line.write(buf, 0, buf.length);
+                line.drain();
+                line.close();
+            } catch (Exception ignored) {
+                // Fallback to Win32 Toolkit beep if soundcard line busy
+                try {
+                    java.awt.Toolkit.getDefaultToolkit().beep();
+                } catch (Exception ignored2) {}
+            }
+        }, "FastScreenCapture-ToneThread").start();
     }
 }
