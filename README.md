@@ -269,16 +269,17 @@ dependencies {
 
 ### Option 3: Direct Download (No Build Tool)
 
-Download the latest pre-compiled JARs directly to add them to your project's classpath or use the CLI directly:
-
 1. 📸 [**FastScreenCapture-0.1.0.jar**](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0) (The CLI & Capture Engine)
-2. 🖥️ [**FastScreen-0.1.4.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4) (DirectX 11 DXGI Desktop Capture)
-3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 Hotkeys)
+2. 🖥️ [**FastScreen-0.1.4.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4) (DirectX 11 DXGI Desktop Capture & Native Engine)
+3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 System Hotkeys)
 4. 🖼️ [**FastImage-0.1.4.jar**](https://github.com/andrestubbe/FastImage/releases/tag/0.1.4) (Zero-Copy Frame Container & SIMD Filters)
-5. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library Loader)
+5. ⚡ [**FastSIMD-0.1.3.jar**](https://github.com/andrestubbe/FastSIMD/releases/tag/0.1.3) (Vectorized SIMD Math Core)
+6. 🧠 [**FastMemory-0.1.1.jar**](https://github.com/andrestubbe/FastMemory/releases/tag/0.1.1) (High-Performance Off-Heap Memory Manager)
+7. 📍 [**FastPointer-0.1.1.jar**](https://github.com/andrestubbe/FastPointer/releases/tag/0.1.1) (Zero-Overhead Direct Memory Pointer Bridge)
+8. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library & DLL Auto-Loader)
 
 > [!IMPORTANT]
-> FastScreenCapture requires `FastScreen` (with its native DXGI DLL), `FastHotkey`, `FastImage` (with `FastSIMD`, `FastMemory`, `FastPointer`), and `FastCore` on the classpath. All native `.dll` libraries are extracted automatically on first run by `FastCore`.
+> FastScreenCapture requires all 8 JARs above on the classpath when running standalone without a package manager. All native `.dll` binaries are extracted and loaded automatically into RAM on first run by `FastCore`.
 
 ---
 
