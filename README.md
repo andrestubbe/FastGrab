@@ -227,7 +227,7 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
         <version>0.1.0</version>
     </dependency>
 
-    <!-- Underlying Hardware Engines -->
+    <!-- Underlying Native & Zero-Copy Hardware Engines -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastScreen</artifactId>
@@ -237,6 +237,11 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>fasthotkey</artifactId>
         <version>0.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastImage</artifactId>
+        <version>0.1.4</version>
     </dependency>
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
@@ -257,6 +262,7 @@ dependencies {
     implementation 'com.github.andrestubbe:FastScreenCapture:0.1.0'
     implementation 'com.github.andrestubbe:FastScreen:0.1.4'
     implementation 'com.github.andrestubbe:fasthotkey:0.1.0'
+    implementation 'com.github.andrestubbe:FastImage:0.1.4'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
 ```
@@ -268,10 +274,11 @@ Download the latest pre-compiled JARs directly to add them to your project's cla
 1. 📸 [**FastScreenCapture-0.1.0.jar**](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0) (The CLI & Capture Engine)
 2. 🖥️ [**FastScreen-0.1.4.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4) (DirectX 11 DXGI Desktop Capture)
 3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 Hotkeys)
-4. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library Loader)
+4. 🖼️ [**FastImage-0.1.4.jar**](https://github.com/andrestubbe/FastImage/releases/tag/0.1.4) (Zero-Copy Frame Container & SIMD Filters)
+5. ⚙️ [**FastCore-0.1.0.jar**](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0) (Mandatory Native Library Loader)
 
 > [!IMPORTANT]
-> FastScreenCapture requires `FastScreen` (and its native DLL), `FastHotkey`, and `FastCore` on the classpath to run.
+> FastScreenCapture requires `FastScreen` (with its native DXGI DLL), `FastHotkey`, `FastImage` (with `FastSIMD`, `FastMemory`, `FastPointer`), and `FastCore` on the classpath. All native `.dll` libraries are extracted automatically on first run by `FastCore`.
 
 ---
 
