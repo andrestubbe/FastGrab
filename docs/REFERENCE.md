@@ -14,6 +14,7 @@ FastScreenCapture.bat [options]
 
 | Switch | Long Option | Argument | Description | Default |
 |:---|:---|:---:|:---|:---:|
+| `-c` | `--cursor` | - | Renders the exact, active system cursor into the capture | `false` |
 | - | `--record` | `[seconds]` | Lossless 60 FPS video recording streamed into FFmpeg pipe | `60` |
 | - | `--fps` | `<fps>` | Video recording framerate target | `60` |
 | `-d` | `--daemon` | - | Runs in background (`[F9]` Toggle Video, `[F10]` Screenshot) | `false` |

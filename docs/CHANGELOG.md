@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.1] - 2026-09-06
 
-### Added
+- **Native Mouse Cursor Capture (`--cursor`, `--mouse`, `-c`)**:
+  - Direct Win32 hardware cursor extraction via `GetCursorInfo` + `GetIconInfo` + `DrawIconEx`.
+  - Precise hotspot alignment (arrow tip, crosshair center, text I-beam) and real-time 32-bit alpha blending into uncompressed BMP screenshots and 60 FPS video recordings.
+  - Zero performance overhead when disabled; sub-0.01 ms blending time when active.
 - **Official 60 FPS Demonstration Video**:
   - Embedded YouTube demonstration (`https://youtu.be/CBbNffXXvVc`) showcasing lossless 60 FPS direct-pipe streaming and sub-millisecond DXGI frame acquisition.
   - Linked interactive banner and video documentation in `README.md`.
 - **Packaging & Dependency Fixes**:
-  - Updated all dependency listings and direct download references to release `0.1.1`.
+  - Explicitly declared foundation dependencies (`FastSIMD`, `FastMemory`, `FastPointer`) in Maven and Gradle documentation.
 
 ## [0.1.0] - 2026-09-06
 

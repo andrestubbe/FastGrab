@@ -186,6 +186,7 @@ Disk I/O Churn                       0 MB/s temp    Zero intermediate disk write
 
 | Switch | Long Option | Argument | Description | Default |
 |:---|:---|:---:|:---|:---:|
+| `-c` | `--cursor` | - | Renders the exact, active system cursor into the capture | `false` |
 | - | `--record` | `[seconds]` | Direct lossless 60 FPS video recording via FFmpeg pipe | `60` |
 | - | `--fps` | `<fps>` | Target recording frame rate | `60` |
 | `-d` | `--daemon` | - | Runs continuously in background (hotkeys: `F9` Video, `F10` Screenshot) | `false` |

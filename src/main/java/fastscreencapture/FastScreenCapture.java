@@ -49,10 +49,17 @@ public class FastScreenCapture {
         boolean recordMode = false;
         int recordDurationSeconds = 60;
         int recordFps = 60;
+        boolean withCursor = false;
 
         // Parse arguments
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
+                case "--cursor":
+                case "--mouse":
+                case "--with-mouse":
+                case "-c":
+                    withCursor = true;
+                    break;
                 case "--record":
                 case "--video":
                     recordMode = true;
@@ -111,11 +118,11 @@ public class FastScreenCapture {
         printBanner();
 
         if (recordMode) {
-            recordVideo(outputFile, captureX, captureY, captureW, captureH, recordDurationSeconds, recordFps);
+            recordVideo(outputFile, captureX, captureY, captureW, captureH, recordDurationSeconds, recordFps, withCursor);
         } else if (daemonMode) {
-            runDaemon(hotkeyCode, hotkeyName);
+            runDaemon(hotkeyCode, hotkeyName, withCursor);
         } else {
-            runOneShot(outputFile, captureX, captureY, captureW, captureH, burstCount);
+            runOneShot(outputFile, captureX, captureY, captureW, captureH, burstCount, withCursor);
         }
     }
 
@@ -131,6 +138,7 @@ public class FastScreenCapture {
         System.out.println("Usage: fastscreencapture [options]");
         System.out.println();
         System.out.println("Options:");
+        System.out.println("  -c, --cursor            Render active mouse cursor into capture / video");
         System.out.println("  --record [seconds]      Record video stream directly to MP4 via FFmpeg pipe (Default: 60s)");
         System.out.println("  --fps <fps>             Target frame rate for video recording (Default: 60)");
         System.out.println("  -d, --daemon            Run in background listening for global hotkey");
@@ -141,7 +149,8 @@ public class FastScreenCapture {
         System.out.println("  -h, --help              Show this help message");
         System.out.println();
         System.out.println("Examples:");
-        System.out.println("  fastscreencapture --record 60          # Stream 60s lossless 60 FPS video directly to MP4");
+        System.out.println("  fastscreencapture --cursor             # Instant desktop grab including mouse pointer");
+        System.out.println("  fastscreencapture --record 60 --cursor # Stream 60s video with mouse cursor to MP4");
         System.out.println("  fastscreencapture --daemon             # Background daemon listening on F10");
         System.out.println("  fastscreencapture                      # Instant bit-perfect full screen grab");
     }
@@ -158,6 +167,13 @@ public class FastScreenCapture {
      * @param fps target recording frame rate (e.g. 60)
      */
     public static void recordVideo(String outFile, int x, int y, int w, int h, int durationSec, int fps) {
+        recordVideo(outFile, x, y, w, h, durationSec, fps, false);
+    }
+
+    /**
+     * Programmatic API: Records a lossless 60 FPS video stream directly via FFmpeg pipe with optional mouse cursor.
+     */
+    public static void recordVideo(String outFile, int x, int y, int w, int h, int durationSec, int fps, boolean withCursor) {
         FastScreen screen = null;
         Process ffmpegProc = null;
         try {
@@ -178,8 +194,8 @@ public class FastScreenCapture {
                 finalOutFile += ".mp4";
             }
 
-            System.out.printf("[RECORD] Starting lossless direct pipe recording: %dx%d @ %d FPS for %d seconds\n",
-                    targetW, targetH, fps, durationSec);
+            System.out.printf("[RECORD] Starting lossless direct pipe recording: %dx%d @ %d FPS for %d seconds (cursor=%b)\n",
+                    targetW, targetH, fps, durationSec, withCursor);
             System.out.printf("[RECORD] Output destination: %s\n", new File(finalOutFile).getAbsolutePath());
 
             String ffmpegPath = resolveFfmpegExecutable();
@@ -221,6 +237,9 @@ public class FastScreenCapture {
             while (framesRecorded < totalFramesTarget && ffmpegProc.isAlive()) {
                 int[] pixels = (w > 0 && h > 0) ? screen.captureRaw(x, y, w, h) : screen.captureRaw(0, 0, 0, 0);
                 if (pixels != null) {
+                    if (withCursor) {
+                        FastCursor.blendCursor(pixels, targetW, targetH, x, y, false);
+                    }
                     // Convert ARGB to little-endian BGRA bytes
                     int byteIdx = 0;
                     int len = Math.min(pixels.length, targetW * targetH);
@@ -307,7 +326,7 @@ public class FastScreenCapture {
         return "ffmpeg";
     }
 
-    private static void runOneShot(String outFile, int x, int y, int w, int h, int burst) {
+    private static void runOneShot(String outFile, int x, int y, int w, int h, int burst, boolean withCursor) {
         FastScreen screen = null;
         try {
             screen = new FastScreen();
@@ -317,7 +336,7 @@ public class FastScreenCapture {
             File outDir = new File("grabs");
             if (!outDir.exists()) outDir.mkdirs();
 
-            System.out.printf("[INFO] Initiating %s grab...\n", (burst > 1 ? burst + "-frame burst" : "one-shot"));
+            System.out.printf("[INFO] Initiating %s grab (cursor=%b)...\n", (burst > 1 ? burst + "-frame burst" : "one-shot"), withCursor);
 
             for (int b = 0; b < burst; b++) {
                 long t0 = System.nanoTime();
@@ -327,6 +346,10 @@ public class FastScreenCapture {
                 if (pixels == null) {
                     System.err.println("[ERROR] Failed to capture DXGI desktop surface.");
                     return;
+                }
+
+                if (withCursor) {
+                    FastCursor.blendCursor(pixels, targetW, targetH, x, y, false);
                 }
 
                 String filename = outFile;
@@ -355,11 +378,11 @@ public class FastScreenCapture {
         }
     }
 
-    private static void runDaemon(int hotkeyCode, String hotkeyName) {
+    private static void runDaemon(int hotkeyCode, String hotkeyName, boolean withCursor) {
         File outDir = new File("grabs");
         if (!outDir.exists()) outDir.mkdirs();
 
-        System.out.println("[DAEMON] Initializing FastScreen DXGI engine...");
+        System.out.printf("[DAEMON] Initializing FastScreen DXGI engine (cursor=%b)...\n", withCursor);
         FastScreen screen = null;
         try {
             screen = new FastScreen();
@@ -406,6 +429,9 @@ public class FastScreenCapture {
                     long t1 = System.nanoTime();
 
                     if (pixels != null) {
+                        if (withCursor) {
+                            FastCursor.blendCursor(pixels, screenW, screenH, 0, 0, false);
+                        }
                         String filename = "grabs/grab_" + DATE_FORMAT.format(new Date()) + ".bmp";
                         FastBmpWriter.writeBmp(filename, screenW, screenH, pixels);
                         long t2 = System.nanoTime();
@@ -478,6 +504,9 @@ public class FastScreenCapture {
                                 try {
                                     int[] pixels = finalScreen.captureRaw(0, 0, 0, 0);
                                     if (pixels != null) {
+                                        if (withCursor) {
+                                            FastCursor.blendCursor(pixels, screenW, screenH, 0, 0, false);
+                                        }
                                         int byteIdx = 0;
                                         int len = Math.min(pixels.length, screenW * screenH);
                                         for (int i = 0; i < len; i++) {
