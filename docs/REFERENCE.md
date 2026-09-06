@@ -36,7 +36,16 @@ FastScreenCapture.bat [options]
 
 ## Java API Reference
 
-### `FastBmpWriter`
+### 1. Video Recording API (`FastScreenCapture`)
+```java
+// Record full desktop at 60 FPS for 60 seconds directly into an MP4 container
+FastScreenCapture.recordVideo("output.mp4", 0, 0, 0, 0, 60, 60);
+
+// Record custom region (800x600 at 100,100) for 10 seconds
+FastScreenCapture.recordVideo("region.mp4", 100, 100, 800, 600, 10, 60);
+```
+
+### 2. Raw Bitmap Writer (`FastBmpWriter`)
 ```java
 // Save raw ARGB pixel array as bit-perfect uncompressed BMP
 FastBmpWriter.writeBmp("output.bmp", width, height, pixels);

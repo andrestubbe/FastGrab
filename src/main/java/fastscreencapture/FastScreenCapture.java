@@ -111,7 +111,7 @@ public class FastScreenCapture {
         printBanner();
 
         if (recordMode) {
-            runRecordVideo(outputFile, captureX, captureY, captureW, captureH, recordDurationSeconds, recordFps);
+            recordVideo(outputFile, captureX, captureY, captureW, captureH, recordDurationSeconds, recordFps);
         } else if (daemonMode) {
             runDaemon(hotkeyCode, hotkeyName);
         } else {
@@ -146,7 +146,18 @@ public class FastScreenCapture {
         System.out.println("  fastscreencapture                      # Instant bit-perfect full screen grab");
     }
 
-    private static void runRecordVideo(String outFile, int x, int y, int w, int h, int durationSec, int fps) {
+    /**
+     * Programmatic API: Records a lossless 60 FPS video stream directly via FFmpeg pipe.
+     *
+     * @param outFile destination MP4 file path (or null for default timestamped path)
+     * @param x capture region X coordinate (0 for full screen)
+     * @param y capture region Y coordinate (0 for full screen)
+     * @param w capture region width (0 for full screen)
+     * @param h capture region height (0 for full screen)
+     * @param durationSec duration in seconds
+     * @param fps target recording frame rate (e.g. 60)
+     */
+    public static void recordVideo(String outFile, int x, int y, int w, int h, int durationSec, int fps) {
         FastScreen screen = null;
         Process ffmpegProc = null;
         try {
