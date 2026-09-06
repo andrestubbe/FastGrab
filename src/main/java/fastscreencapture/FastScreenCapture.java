@@ -189,6 +189,7 @@ public class FastScreenCapture {
                     "-preset", "veryfast",
                     "-crf", "17",
                     "-pix_fmt", "yuv420p",
+                    "-movflags", "+faststart",
                     finalOutFile
             );
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
@@ -440,6 +441,7 @@ public class FastScreenCapture {
                                 "-preset", "veryfast",
                                 "-crf", "17",
                                 "-pix_fmt", "yuv420p",
+                                "-movflags", "+faststart",
                                 videoFilename
                         );
                         pb.redirectError(ProcessBuilder.Redirect.DISCARD);
