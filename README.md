@@ -251,6 +251,21 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
     </dependency>
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastSIMD</artifactId>
+        <version>0.1.3</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastMemory</artifactId>
+        <version>0.1.1</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastPointer</artifactId>
+        <version>0.1.1</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastCore</artifactId>
         <version>0.1.0</version>
     </dependency>
@@ -269,6 +284,9 @@ dependencies {
     implementation 'com.github.andrestubbe:FastScreen:0.1.4'
     implementation 'com.github.andrestubbe:fasthotkey:0.1.0'
     implementation 'com.github.andrestubbe:FastImage:0.1.4'
+    implementation 'com.github.andrestubbe:FastSIMD:0.1.3'
+    implementation 'com.github.andrestubbe:FastMemory:0.1.1'
+    implementation 'com.github.andrestubbe:FastPointer:0.1.1'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
 ```
