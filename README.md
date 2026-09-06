@@ -8,42 +8,34 @@
 
 ---
 
-**⚡ Bit-perfect uncompressed screen grabs in under 1 millisecond.** Direct DirectX 11 DXGI GPU capture, zero GC pressure, and native system-wide hotkeys.
+**⚡ Bit-perfect uncompressed screen grabs and direct 60 FPS video recording.** Direct DirectX 11 DXGI GPU capture, zero GC pressure, direct RAM pipe to FFmpeg, and native system-wide hotkeys.
 
-`FastScreenCapture` is a minimalist, ultra-responsive replacement for bloated screenshot utilities like ShareX and Windows Snipping Tool. Instead of freezing the desktop and forcing heavy PNG compression, `FastScreenCapture` streams raw uncompressed BMP / BGRA byte buffers straight from the GPU frame buffer to NVMe storage.
+`FastScreenCapture` was born out of frustration while recording high-frequency 3D particle benchmarks for **FastAnimation**: standard tools like **ShareX** and the native **Windows 11 Snipping Tool** introduced heavy compression blur, frame drops, and severe moiré interference on fine particle lines.
+
+Instead of burning CPU on heavy compression or writing 30 GB of uncompressed bitmaps to the SSD, `FastScreenCapture` extracts pristine frames straight from DXGI Desktop Duplication and streams raw BGRA buffers directly into an optimized FFmpeg pipe — keeping CPU usage near 0% with zero dropped frames.
 
 ---
 
 ## Quick Start
 
-### 1. Instant Desktop Grab via CLI Launcher
+### 1. Background Daemon (Recommended)
+```cmd
+FastScreenCapture.bat --daemon
+```
+Runs quietly in the background without UI lag or focus interruption:
+- **`[F9]`**: **Toggle 60 FPS Video Recording** (starts/stops lossless MP4 stream via FFmpeg pipe with instant `+faststart` playback).
+- **`[F10]`**: **Instant Bit-Perfect Screenshot** (uncompressed 32-bit BMP straight to `grabs/`).
+- **Acoustic feedback**: High tone (1200 Hz) confirms recording start; low tone (450 Hz) confirms recording stop.
+
+### 2. Instant Desktop Grab via CLI Launcher
 ```cmd
 FastScreenCapture.bat
 ```
 Captures the entire desktop at hardware resolution and writes a bit-perfect uncompressed `.bmp` into `grabs/`.
 
-### 2. Background Daemon with Global Hotkey
+### 3. Programmatic Video & Screenshot API
 ```cmd
-FastScreenCapture.bat --daemon --hotkey F10
-```
-Runs quietly in the background. Pressing `[F10]` anywhere in Windows triggers an instant snapshot without UI lag or focus interruption.
-
-### 3. Programmatic Java API
-```java
-import fastscreen.FastScreen;
-import FastScreenCapture.FastBmpWriter;
-
-public class Demo {
-    public static void main(String[] args) throws Exception {
-        FastScreen screen = new FastScreen();
-        try {
-            int[] pixels = screen.captureRaw(0, 0, 1920, 1080);
-            FastBmpWriter.writeBmp("instant_grab.bmp", 1920, 1080, pixels);
-        } finally {
-            screen.dispose();
-        }
-    }
-}
+FastScreenCapture.bat --record 60 --fps 60 --out fastanimation_demo.mp4
 ```
 
 ---
@@ -161,12 +153,28 @@ FastScreenCapture provides both high-speed Java methods and a standalone CLI too
 
 | Switch | Long Option | Argument | Description | Default |
 |:---|:---|:---:|:---|:---:|
-| `-d` | `--daemon` | - | Runs continuously in background listening for global hotkey | `false` |
-| `-k` | `--hotkey` | `<KEY>` | Hotkey keycode name (`F1`–`F12`, `PRINTSCREEN`) | `F10` |
-| `-o` | `--out` | `<path.bmp>` | Custom output file path for single capture | `grab_YYYYMMDD_HHMMSS_SSS.bmp` |
-| `-r` | `--rect` | `<x,y,w,h>` | Explicit capture region coordinates | Full primary screen |
+| - | `--record` | `[seconds]` | Direct lossless 60 FPS video recording via FFmpeg pipe | `60` |
+| - | `--fps` | `<fps>` | Target recording frame rate | `60` |
+| `-d` | `--daemon` | - | Runs continuously in background (hotkeys: `F9` Video, `F10` Screenshot) | `false` |
+| `-k` | `--hotkey` | `<KEY>` | Screenshot hotkey in daemon mode (`F1`–`F12`, `PRINTSCREEN`) | `F10` |
+| `-o` | `--out` | `<path>` | Custom output file path (`.bmp` or `.mp4`) | `grabs/grab_...` |
+| `-r` | `--rect` | `<x,y,w,h>` | Explicit capture region coordinates | Full screen |
 | `-b` | `--burst` | `<count>` | Consecutive frame burst count | `1` |
 | `-h` | `--help` | - | Prints usage instructions and switches | - |
+
+---
+
+## FFmpeg Requirement & Quick Setup
+
+To enable high-speed direct-pipe video recording without disk I/O bottlenecks, `FastScreenCapture` requires FFmpeg. FastScreenCapture will automatically detect FFmpeg in your system `PATH` or in standard WinGet directories.
+
+Install FFmpeg in one command via Windows Package Manager:
+
+```cmd
+winget install Gyan.FFmpeg
+```
+
+Alternatively, download the official Windows build directly from [gyan.dev/ffmpeg/builds](https://www.gyan.dev/ffmpeg/builds/) (e.g. `ffmpeg-release-essentials.zip`) and add its `bin` folder to your system `PATH`.
 
 ---
 

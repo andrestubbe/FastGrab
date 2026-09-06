@@ -1,21 +1,22 @@
-# FastGrab Roadmap 🗺️
+# FastScreenCapture Roadmap 🗺️
 
 **Vision:** The highest-throughput, lowest-latency screen recorder and uncompressed frame capture CLI daemon for Java and Windows.
 
 ---
 
-## 🟢 v0.1.0: Core Capture & Daemon Release (Completed)
+## 🟢 0.1.0: Core Capture & 60 FPS Video Stream (Completed)
 - [x] **DXGI Direct Capture**: Sub-millisecond desktop ingestion via `FastScreen`.
 - [x] **Zero-Copy Uncompressed BMP Engine**: `FastBmpWriter` top-down DIB direct-to-disk streaming.
-- [x] **Global Hotkey Daemon**: System-wide low-latency hotkey trigger (`FastHotkey`).
+- [x] **Lossless 60 FPS Video Recording**: Zero-copy RAM pipe streaming into FFmpeg (`-movflags +faststart`).
+- [x] **Global Hotkey Daemon**: System-wide low-latency hotkey triggers: `[F9]` for Video toggle, `[F10]` for Screenshots.
+- [x] **Acoustic Audio Tone Cues**: 1200 Hz tone on recording start, 450 Hz on recording stop.
 - [x] **Burst Capture**: Consecutive multi-frame burst capture with sub-3ms latency per frame.
-- [x] **CLI Options**: Full command-line interface with `--rect`, `--burst`, `--hotkey`, `--out`, `--daemon`.
+- [x] **CLI Options**: Full command-line interface with `--record`, `--fps`, `--rect`, `--burst`, `--hotkey`, `--out`, `--daemon`.
 - [x] **Standardized Microbenchmarks**: JMH benchmark suite measuring disk throughput (>220 FPS).
 
 ---
 
-## 🟡 v0.2.0: Continuous 60+ FPS Video Streaming & Raw Stream Container
-- [ ] **Continuous 60 FPS Recorder Mode**: `--record <seconds>` and `--fps <60>` CLI capture loop.
+## 🟡 0.2.0: Streaming Buffering & UI Controls
 - [ ] **Sequential Frame Ring Buffer**: Asynchronous multi-threaded disk writer queue to eliminate write stalls.
 - [ ] **FastRaw / `.fseq` Uncompressed Stream Container**: Single-file uncompressed raw video container for lossless playback.
 - [ ] **Region Drag Selector**: Interactive lightweight desktop overlay for region coordinates.

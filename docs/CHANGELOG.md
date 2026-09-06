@@ -1,16 +1,24 @@
 # Changelog 📝
 
-All notable changes to **FastGrab** will be documented in this file.
+All notable changes to **FastScreenCapture** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [0.1.0] - 2026-09-05
+## [0.1.0] - 2026-09-06
 
 ### Added
-- **Initial Release of FastGrab**: Ultra-fast uncompressed screen capture CLI and global hotkey daemon for Java.
+- **Initial Release of FastScreenCapture**: Ultra-fast uncompressed screen capture CLI and global hotkey daemon for Java.
+- **Lossless 60 FPS Video Recording via FFmpeg Pipe**:
+  - Direct zero-copy memory stream from DXGI Desktop Duplication directly into an FFmpeg process stdin.
+  - Zero disk I/O lag: eliminates generating gigabytes of intermediate files.
+  - Generates web- and Windows Photos-compatible MP4 files with `-movflags +faststart`.
+  - Toggle video recording on/off anytime with global hotkey `[F9]`.
+- **Acoustic Status Feedback**:
+  - Crisp high pitch (1200 Hz) on recording start.
+  - Low pitch (450 Hz) on recording stop and file finalization.
 - **Bit-Perfect Uncompressed BMP Engine (`FastBmpWriter`)**:
   - Direct sequential write of 54-byte BMP header + 32-bit BGRA pixel streams.
   - Top-down DIB layout (negative height in `BITMAPINFOHEADER`) eliminating buffer flipping and vertical inversion passes.
@@ -20,12 +28,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Off-heap zero-copy pixel buffer streaming straight from native memory to disk.
 - **Global Hotkey Daemon (`--daemon`, `-d`)**:
   - Background system-wide hotkey listener using `FastHotkey` (Win32 low-level hooks).
-  - Customizable hotkey trigger (`--hotkey <KEY>`, default `F10`, supports `F1`-`F12`, `PRINTSCREEN`).
-  - Automatic timestamped output (`grabs/grab_YYYYMMDD_HHMMSS_SSS.bmp`).
+  - Customizable hotkey trigger (`--hotkey <KEY>`, default `F10` for screenshot, `F9` for video toggle).
+  - Automatic timestamped output (`grabs/video_*.mp4`, `grabs/grab_*.bmp`).
 - **CLI & Burst Capture**:
+  - Continuous video streaming via `--record <seconds>` and `--fps <fps>`.
   - Region selection via `--rect x,y,w,h`.
-  - Custom output file targets via `--out <path.bmp>`.
+  - Custom output file targets via `--out <path>`.
   - Multi-frame burst capture (`--burst <count>`).
 - **Ready-to-Use Scripts & Benchmarks**:
-  - `FastGrab.bat` launch script with zero setup overhead.
+  - `FastScreenCapture.bat` launch script with cached classpath and automatic UTF-8 (`chcp 65001`) console encoding.
   - Standardized JMH microbenchmark suite (`run-benchmark.bat`).

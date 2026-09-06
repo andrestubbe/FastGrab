@@ -1,4 +1,4 @@
-# FastGrab API & CLI Reference 📖
+# FastScreenCapture API & CLI Reference 📖
 
 Complete guide for CLI switches, hotkey configuration, and Java API usage.
 
@@ -7,19 +7,30 @@ Complete guide for CLI switches, hotkey configuration, and Java API usage.
 ## Command Line Interface (CLI)
 
 ```bash
-FastGrab.bat [options]
+FastScreenCapture.bat [options]
 ```
 
 ### Options
 
 | Switch | Long Option | Argument | Description | Default |
 |:---|:---|:---:|:---|:---:|
-| `-d` | `--daemon` | - | Runs continuously in the background listening for hotkeys | `false` |
-| `-k` | `--hotkey` | `<KEY>` | Hotkey keycode name (`F1`-`F12`, `PRINTSCREEN`) | `F10` |
-| `-o` | `--out` | `<path.bmp>` | Target file path for single capture | Auto timestamp |
+| - | `--record` | `[seconds]` | Lossless 60 FPS video recording streamed into FFmpeg pipe | `60` |
+| - | `--fps` | `<fps>` | Video recording framerate target | `60` |
+| `-d` | `--daemon` | - | Runs in background (`[F9]` Toggle Video, `[F10]` Screenshot) | `false` |
+| `-k` | `--hotkey` | `<KEY>` | Screenshot hotkey (`F1`-`F12`, `PRINTSCREEN`) | `F10` |
+| `-o` | `--out` | `<path>` | Output target (`.bmp` or `.mp4`) | Auto timestamp |
 | `-r` | `--rect` | `<x,y,w,h>` | Explicit capture region coordinates | Full screen |
 | `-b` | `--burst` | `<count>` | Consecutive frame burst count | `1` |
 | `-h` | `--help` | - | Displays usage instructions | - |
+
+---
+
+## Hotkeys & Audio Tone Cues (Daemon Mode)
+
+* **`[F9]`**: Start/Stop Video Recording (`grabs/video_*.mp4`)
+  * 🔔 **High Tone (1200 Hz)**: Confirms recording start
+  * 🔔 **Low Tone (450 Hz)**: Confirms recording stop & finalization
+* **`[F10]`**: Single uncompressed bit-perfect snapshot (`grabs/grab_*.bmp`)
 
 ---
 
