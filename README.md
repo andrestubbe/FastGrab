@@ -1,10 +1,10 @@
-# FastScreenCapture 0.1.0 [ALPHA] — Ultra-Fast Uncompressed Screen Capture CLI & Global Hotkey Daemon for Java
+# FastScreenCapture 0.1.1 [ALPHA] — Ultra-Fast Uncompressed Screen Capture CLI & Global Hotkey Daemon for Java
 
-[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0)
+[![Status](https://img.shields.io/badge/status-0.1.1-brightgreen.svg)](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
-[![JitPack](https://img.shields.io/badge/JitPack-0.1.0-green.svg)](https://jitpack.io/#andrestubbe/FastScreenCapture)
+[![JitPack](https://img.shields.io/badge/JitPack-0.1.1-green.svg)](https://jitpack.io/#andrestubbe/FastScreenCapture)
 
 ---
 
@@ -15,7 +15,13 @@
 Instead of burning CPU on heavy compression or writing 30 GB of uncompressed bitmaps to the SSD, `FastScreenCapture` extracts pristine frames straight from DXGI Desktop Duplication and streams raw BGRA buffers directly into an optimized FFmpeg pipe — keeping CPU usage near 0% with zero dropped frames.
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="FastScreenCapture Daemon Preview" width="800" />
+  <b>▶️ Watch the 60 FPS Demo Video on YouTube:</b> <a href="https://youtu.be/CBbNffXXvVc">https://youtu.be/CBbNffXXvVc</a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/CBbNffXXvVc" target="_blank" rel="noopener noreferrer">
+    <img src="docs/screenshot.png" alt="FastScreenCapture Demo Video" width="800" />
+  </a>
 </p>
 
 ---
@@ -224,7 +230,7 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastScreenCapture</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </dependency>
 
     <!-- Underlying Native & Zero-Copy Hardware Engines -->
@@ -259,7 +265,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:FastScreenCapture:0.1.0'
+    implementation 'com.github.andrestubbe:FastScreenCapture:0.1.1'
     implementation 'com.github.andrestubbe:FastScreen:0.1.4'
     implementation 'com.github.andrestubbe:fasthotkey:0.1.0'
     implementation 'com.github.andrestubbe:FastImage:0.1.4'
@@ -269,7 +275,7 @@ dependencies {
 
 ### Option 3: Direct Download (No Build Tool)
 
-1. 📸 [**FastScreenCapture-0.1.0.jar**](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.0) (The CLI & Capture Engine)
+1. 📸 [**FastScreenCapture-0.1.1.jar**](https://github.com/andrestubbe/FastScreenCapture/releases/tag/0.1.1) (The CLI & Capture Engine)
 2. 🖥️ [**FastScreen-0.1.4.jar**](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4) (DirectX 11 DXGI Desktop Capture & Native Engine)
 3. ⌨️ [**FastHotkey-0.1.0.jar**](https://github.com/andrestubbe/FastHotkey/releases/tag/0.1.0) (Low-Latency Win32 System Hotkeys)
 4. 🖼️ [**FastImage-0.1.4.jar**](https://github.com/andrestubbe/FastImage/releases/tag/0.1.4) (Zero-Copy Frame Container & SIMD Filters)

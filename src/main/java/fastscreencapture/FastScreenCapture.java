@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class FastScreenCapture {
 
-    private static final String VERSION = "0.1.0";
+    private static final String VERSION = "0.1.1";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
 
     // Virtual key for PrintScreen in Windows Win32 API is 0x2C (VK_SNAPSHOT)

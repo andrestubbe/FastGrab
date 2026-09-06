@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.1] - 2026-09-06
+
+### Added
+- **Official 60 FPS Demonstration Video**:
+  - Embedded YouTube demonstration (`https://youtu.be/CBbNffXXvVc`) showcasing lossless 60 FPS direct-pipe streaming and sub-millisecond DXGI frame acquisition.
+  - Linked interactive banner and video documentation in `README.md`.
+- **Packaging & Dependency Fixes**:
+  - Updated all dependency listings and direct download references to release `0.1.1`.
+
 ## [0.1.0] - 2026-09-06
 
 ### Added
